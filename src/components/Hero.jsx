@@ -19,7 +19,6 @@ function Hero() {
                 <a href="#projects" className="btn btn-primary">View my projects</a>
                 <a href="#contact" className="btn btn-secondary">Contact Me</a>
               </div>
-              <div className="scroll-hint">↓</div>
         </div>
 </section>
 
