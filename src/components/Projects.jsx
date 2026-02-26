@@ -20,6 +20,7 @@ function Projects() {
   return (
     <section id="projects">
         <div className="container">
+          <h1>Here is a list of projects I have worked on.</h1>
             <div className="projects-grid">
             {projects.map((project) => {
               return (

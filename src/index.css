@@ -45,7 +45,7 @@ section {
   z-index: 1000;
   background: var(--surface);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 14px 0;
+  padding: 30px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   /* If you still feel it "blends", remove blur entirely */
   backdrop-filter: blur(10px);
@@ -60,16 +60,23 @@ section {
 .nav-links {
   display: flex;
   gap: 1.5rem;
+   font-size: 1.05rem;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text);
+  font-size: 1.05rem;
 }
 
 .nav-links a:hover {
   opacity: 0.7;
 }
+
+@media (max-width: 600px){
+  .nav-links{
+    gap: 1rem;
+  }}
 
 /* BUTTONS */
 .btn {
@@ -113,14 +120,14 @@ section {
 
 /* Avatar */
 .hero-avatar {
-  width: 190px;
-  height: 190px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 30px rgba(79, 140, 255, 0.25);
-  margin-bottom: 18px;
+  box-shadow: 0 0 40px rgba(79, 140, 255, 0.35);
+  margin-bottom: 22px;
 }
 
 /* Headline + subtext */
