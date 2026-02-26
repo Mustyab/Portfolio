@@ -120,8 +120,8 @@ section {
 
 /* Avatar */
 .hero-avatar {
-  width: 400px;
-  height: 400px;
+  width: 401px;
+  height: 401px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
