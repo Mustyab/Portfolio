@@ -18,6 +18,19 @@ body {
   font-family: system-ui, sans-serif;
 }
 
+.logo{
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  color: var(--text);
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.logo:hover{
+  color: var(--accent);
+}
+
 a {
   color: var(--text);
 }
@@ -43,12 +56,13 @@ section {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--surface);
+  /* background: var(--surface); */
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding: 30px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   /* If you still feel it "blends", remove blur entirely */
-  backdrop-filter: blur(10px);
+  background: rgba(13,20,36,0.85);
+  backdrop-filter: blur(12px);
 }
 
 .navbar-inner {
@@ -61,22 +75,44 @@ section {
   display: flex;
   gap: 1.5rem;
    font-size: 1.05rem;
-}
+}   
 
-.nav-links a {
+.nav-links a{
+  position: relative;
+  margin-left: 1.8rem;
   text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.nav-links a:hover{
   color: var(--text);
-  font-size: 1.05rem;
 }
 
-.nav-links a:hover {
-  opacity: 0.7;
+.nav-links a::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.25s ease;
 }
 
-@media (max-width: 600px){
-  .nav-links{
-    gap: 1rem;
-  }}
+.nav-links a:hover::after{
+  width: 100%;
+}
+
+.nav-link.active{
+  color: var(--text);
+}
+
+.nav-link.active::after{
+  width: 100%;
+}
+
 
 /* BUTTONS */
 .btn {
@@ -104,12 +140,45 @@ section {
   transform: translateY(-1px);
 }
 
+/* WOW: animated glow behind hero */
+.hero{
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before{
+  content: "";
+  position: absolute;
+  inset: -200px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(79,140,255,0.18), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(124,92,255,0.14), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(79,140,255,0.10), transparent 55%);
+  filter: blur(18px);
+  animation: glowMove 10s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner{
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes glowMove{
+  0%   { transform: translate3d(-20px, -10px, 0) scale(1); }
+  100% { transform: translate3d(20px, 10px, 0) scale(1.05); }
+}
+
 /* HERO (fills screen, content sits higher like reference) */
 .hero {
   min-height: 100vh;
   position: relative; /* needed for absolute scroll-hint */
   padding-top: 120px;  /* controls how high the hero content sits */
   padding-bottom: 70px;
+  .hero{
+    background: radial-gradient(circle at top, rgba(79,140,255,0.12), transparent 60%);
+  }
 }
 
 .hero-inner {
@@ -153,6 +222,96 @@ section {
   flex-wrap: wrap;
 }
 
+@media (max-width: 768px){
+  .project-card:hover{
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 600px){
+  .navbar{
+    padding: 16px 0;
+  }
+
+  .nav-links a{
+    margin-left: 1rem;
+    font-size: 0.95rem;
+  }
+
+
+  #projects{
+    padding: 3.5rem 0;
+  }
+
+  .project-card{
+    padding: 1.2rem;
+  }
+
+  .project-card h2{
+    font-size: 1.1rem;
+  }
+
+  .project-card p{
+    font-size: 0.95rem;
+  }
+
+  #contact{
+    padding: 4rem 0;
+  }
+  
+  #contact h1{
+    margin-bottom: 0.5rem;
+  }
+  
+  #contact p{
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  /* Hero sits higher like the reference */
+  .hero{
+    min-height: 100vh;
+    padding-top: 70px;     /* pushes content up */
+    padding-bottom: 24px;
+  }
+
+  /* Big avatar but not absurd */
+  .hero-avatar{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 14px;
+  }
+
+  /* Big, bold title like reference */
+  .hero h1{
+    font-size: 2.05rem;
+    line-height: 1.08;
+    margin: 0 0 10px;
+  }
+
+  /* Slightly tighter paragraph */
+  .hero p{
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 auto 18px;
+    max-width: 34ch;
+  }
+
+  /* Buttons: keep them compact and close */
+  .hero-actions{
+    gap: 10px;
+  }
+
+  .btn{
+    padding: 0.7rem 1rem;
+  }
+
+  /* Optional: hide the scroll hint on mobile (usually looks odd) */
+  .scroll-hint{
+    display: none;
+  }
+}
+
 /* Scroll hint pinned to bottom center */
 .scroll-hint {
   position: absolute;
@@ -187,7 +346,9 @@ section {
   border-top: 2px solid var(--accent);
   padding: 1rem;
   border-radius: 12px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+  
 }
 
 .project-card h2 {
@@ -206,8 +367,12 @@ section {
 }
 
 .project-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(79, 140, 255, 0.2);
+  transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+.projects-grid{
+  perspective: 1000px;
 }
 
 /* CONTACT */
@@ -248,6 +413,16 @@ section {
 /* Small typographic tweak */
 h2 {
   margin-bottom: 0.5rem;
+}
+
+.scroll-progress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  z-index: 9999;
 }
 
 .footer{
